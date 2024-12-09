@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sign_dictionary/models/grid_item.model.dart';
 import 'package:sign_dictionary/services/words_fetcher.dart';
 import 'package:sign_dictionary/widgets/infinite_scroll_grid.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WordListScreen extends StatelessWidget {
   final String category;
@@ -15,7 +16,7 @@ class WordListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Categories')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.word_list_title)),
       body: InfiniteScrollGrid<GridItem>(
         fetchMoreItems: _fetchWords,
         itemBuilder: (context, item) {

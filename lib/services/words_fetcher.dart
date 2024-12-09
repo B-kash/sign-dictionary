@@ -10,15 +10,30 @@ class WordFetcherService {
   Future<List<GridItem>> fetchWordsByCategory(
       String category, int skip, int take) async {
     if (jsonString == null || jsonString!.isEmpty) {
-      jsonString = await rootBundle.loadString('assets/jsons/words.json');
+      try {
+        jsonString = await rootBundle.loadString('assets/jsons/words.json');
+      } catch (e) {
+        print('Error loading JSON file: $e');
+        return [];
+      }
     }
 
     if (jsonResponse == null || jsonResponse!.isEmpty) {
-      jsonResponse = json.decode(jsonString!) as List<dynamic>;
+      try {
+        jsonResponse = json.decode(jsonString!) as List<dynamic>;
+      } catch (e) {
+        print('Error parsing JSON file: $e');
+        return [];
+      }
     }
 
     try {
-      List<GridItem> words = jsonResponse!.map((jsonItem) {
+      List<GridItem> words = jsonResponse!.where((jsonItem) {
+        if (jsonItem['categories'] is List) {
+          return (jsonItem['categories'] as List).contains(category);
+        }
+        return false;
+      }).map((jsonItem) {
         Map<String, String> localizedNames = {};
         if (jsonItem['name'] is Map) {
           for (var locale in (jsonItem['name'] as Map).keys) {
@@ -30,7 +45,6 @@ class WordFetcherService {
           name: Localized(localizedNames),
         );
       }).toList();
-
       return words.skip(skip).take(take).toList();
     } catch (e) {
       print('Error processing categories: $e');

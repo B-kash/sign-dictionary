@@ -1,1 +1,69 @@
-[]
+[
+    {
+      "name": {
+        "en": "Apple",
+        "npl": "स्याउ"
+      },
+      "categories": [
+        "Category 1",
+        "Category 2"
+      ],
+      "meaning": {
+        "en": "some meaning in en",
+        "npl": "some meaning in npl"
+      },
+      "videoLink": "some video link"
+    },{
+      "name": {
+        "en": "Orange",
+        "npl": "सुन्तला"
+      },
+      "categories": [
+        "Category 2"
+      ],
+      "meaning": {
+        "en": "some meaning in en",
+        "npl": "some meaning in npl"
+      },
+      "videoLink": "some video link"
+    },{
+      "name": {
+        "en": "Guava",
+        "npl": "अमरुद"
+      },
+      "categories": [
+        "Category 3"
+      ],
+      "meaning": {
+        "en": "some meaning in en",
+        "npl": "some meaning in npl"
+      },
+      "videoLink": "some video link"
+    },{
+      "name": {
+        "en": "Banana",
+        "npl": "केरा"
+      },
+      "categories": [
+        "Category 4"
+      ],
+      "meaning": {
+        "en": "some meaning in en",
+        "npl": "some meaning in npl"
+      },
+      "videoLink": "some video link"
+    },{
+      "name": {
+        "en": "Mango",
+        "npl": "आम"
+      },
+      "categories": [
+        "Category 8"
+      ],
+      "meaning": {
+        "en": "some meaning in en",
+        "npl": "some meaning in npl"
+      },
+      "videoLink": "some video link"
+    }
+  ]

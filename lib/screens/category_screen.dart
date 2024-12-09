@@ -4,6 +4,7 @@ import 'package:sign_dictionary/screens/word_list_screen.dart';
 import 'package:sign_dictionary/services/navigator_service.dart';
 import 'package:sign_dictionary/widgets/infinite_scroll_grid.dart';
 import 'package:sign_dictionary/services/category_fetcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryScreen extends StatelessWidget {
   final CategoryFetcherService _categoryFetcherService =
@@ -25,7 +26,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Categories')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.categories)),
       body: InfiniteScrollGrid<GridItem>(
         fetchMoreItems: _fetchCategories,
         onTap: (item) => _navigateToWords(context, item),
