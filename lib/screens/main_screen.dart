@@ -5,7 +5,7 @@ import 'package:sign_dictionary/screens/sponsor_screen.dart';
 import '../widgets/search_bar.dart' as search;
 import '../widgets/navigation_bar.dart' as nav;
 import './home_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('NSL Dictionary')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.appTitle,)),
       body: Column(
         children: [
           search.SearchBar(),
