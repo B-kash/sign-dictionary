@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sign_dictionary/screens/profile_screen.dart';
+import 'package:sign_dictionary/screens/social_screen.dart';
+import 'package:sign_dictionary/screens/sponsor_screen.dart';
 import '../widgets/search_bar.dart' as search;
 import '../widgets/navigation_bar.dart' as nav;
+import './home_screen.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -13,10 +17,10 @@ class _MainScreenState extends State<MainScreen> {
 
   // List of screens to display based on the selected tab
   final List<Widget> _screens = [
-    Center(child: Text('Home Screen')),
-    Center(child: Text('Search Screen')),
-    Center(child: Text('Settings Screen')),
-    Center(child: Text('Profile Screen')),
+    HomeScreen(),
+    SocialScreen(),
+    SponsorScreen(),
+    ProfileScreen(),
   ];
 
   void _onTabSelected(int index) {
@@ -28,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My App')),
+      appBar: AppBar(title: Text('NSL Dictionary')),
       body: Column(
         children: [
           search.SearchBar(),
