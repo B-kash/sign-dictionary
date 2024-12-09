@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:sign_dictionary/models/grid_item.model.dart';
-import 'package:sign_dictionary/screens/word_list_screen.dart';
 
-typedef FetchItemsCallback = Future<List<GridItem>> Function(
-    int currentItemCount);
+class InfiniteScrollGrid<T> extends StatefulWidget {
+  final Future<List<T>> Function(int skip, int take) fetchMoreItems;
+  final Widget Function(BuildContext context, T item) itemBuilder;
+  final void Function(T item)? onTap;
+  final int crossAxisCount;
 
-class InfiniteScrollGrid extends StatefulWidget {
-  final FetchItemsCallback fetchMoreItems; // Function to fetch items
-
-  const InfiniteScrollGrid({super.key, required this.fetchMoreItems});
+  const InfiniteScrollGrid({
+    super.key,
+    required this.fetchMoreItems,
+    required this.itemBuilder,
+    this.onTap,
+    this.crossAxisCount = 4,
+  });
 
   @override
-  _InfiniteScrollGridState createState() => _InfiniteScrollGridState();
+  _InfiniteScrollGridState<T> createState() => _InfiniteScrollGridState<T>();
 }
 
-class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
+class _InfiniteScrollGridState<T> extends State<InfiniteScrollGrid<T>> {
   final ScrollController _scrollController = ScrollController();
-  List<GridItem> _items = []; // List to store fetched items
-  bool _isFetching = false; // Track if fetch is in progress
+  List<T> _items = [];
+  bool _isFetching = false;
 
   @override
   void initState() {
@@ -26,9 +30,7 @@ class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
 
     // Listen for scroll events to detect end of the list
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent &&
-          !_isFetching) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isFetching) {
         _fetchMoreItems();
       }
     });
@@ -39,7 +41,7 @@ class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
       _isFetching = true;
     });
 
-    final items = await widget.fetchMoreItems(_items.length);
+    final items = await widget.fetchMoreItems(0, 10);
     setState(() {
       _items = items;
       _isFetching = false;
@@ -51,7 +53,7 @@ class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
       _isFetching = true;
     });
 
-    final newItems = await widget.fetchMoreItems(_items.length);
+    final newItems = await widget.fetchMoreItems(_items.length, 10);
     setState(() {
       _items.addAll(newItems);
       _isFetching = false;
@@ -64,43 +66,17 @@ class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
       children: [
         GridView.builder(
           controller: _scrollController,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: widget.crossAxisCount,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
           ),
           itemCount: _items.length,
           itemBuilder: (context, index) {
             final item = _items[index];
             return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WordListScreen(
-                        category: item.name[
-                            Localizations.localeOf(context).languageCode]),
-                  ),
-                );
-              },
-              child: Card(
-                elevation: 5,
-                color: Colors.blue[100],
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    item.logo != null
-                        ? Image.network(item.logo!, height: 50, width: 50)
-                        : const SizedBox(height: 50, width: 50),
-                    const SizedBox(height: 10),
-                    Text(
-                      item.name[Localizations.localeOf(context).languageCode],
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
+              onTap: widget.onTap != null ? () => widget.onTap!(item) : null,
+              child: widget.itemBuilder(context, item),
             );
           },
         ),
