@@ -16,6 +16,7 @@ class _MainScreenState extends State<MainScreen> {
     Center(child: Text('Home Screen')),
     Center(child: Text('Search Screen')),
     Center(child: Text('Settings Screen')),
+    Center(child: Text('Profile Screen')),
   ];
 
   void _onTabSelected(int index) {
@@ -34,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
           Expanded(child: _screens[_selectedIndex]), // Dynamic screen
         ],
       ),
-      bottomNavigationBar: nav.NavigationBar(onTabSelected: _onTabSelected),
+      bottomNavigationBar: nav.NavigationBar(onTabSelected: _onTabSelected, currentIndex: _selectedIndex),
     );
   }
 }

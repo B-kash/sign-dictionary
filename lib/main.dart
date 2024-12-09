@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,
       ),
       home: FutureBuilder(
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-    Future<void> _initializeApp() async {
+
+  Future<void> _initializeApp() async {
     await Future.delayed(Duration(seconds: 3)); // Adjust delay as needed
   }
 }
@@ -54,7 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
