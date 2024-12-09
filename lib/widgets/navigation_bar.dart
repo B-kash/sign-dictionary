@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavigationBar extends StatelessWidget {
   final ValueChanged<int> onTabSelected;
@@ -20,22 +21,22 @@ class NavigationBar extends StatelessWidget {
       selectedItemColor: Colors.blue[300], // Color of the selected item
       unselectedItemColor: Colors.grey, // Color of the unselected items
       elevation: 8.0, // Optional: add shadow for a more prominent effect
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+          icon: const Icon(Icons.home),
+          label: AppLocalizations.of(context)!.home,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.group),
-          label: 'Social',
+          icon: const Icon(Icons.group),
+          label: AppLocalizations.of(context)!.social,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.social_distance),
-          label: 'Sponsors',
+          icon: const Icon(Icons.social_distance),
+          label: AppLocalizations.of(context)!.sponsors,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
-          label: 'You',
+          icon: const Icon(Icons.account_circle),
+          label: AppLocalizations.of(context)!.you,
         ),
       ],
     );

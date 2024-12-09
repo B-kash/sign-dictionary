@@ -2,5 +2,9 @@
   "@@locale": "en",
   "appTitle": "Internationalized App",
   "greeting": "Hello!",
-  "search": "Search"
+  "search": "Search",
+  "home": "Home",
+  "social": "Social",
+  "sponsors": "Sponsors",
+  "you": "You"
 }
