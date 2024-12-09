@@ -35,5 +35,7 @@ flutter:
   generate: true
   assets:
     - assets/images/loading.png
+    - assets/jsons/categories.json
+    - assets/jsons/words.json
 
   uses-material-design: true
