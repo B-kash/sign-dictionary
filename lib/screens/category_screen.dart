@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sign_dictionary/models/grid_item.model.dart';
 import 'package:sign_dictionary/screens/word_list_screen.dart';
+import 'package:sign_dictionary/services/navigator_service.dart';
 import 'package:sign_dictionary/widgets/infinite_scroll_grid.dart';
 import 'package:sign_dictionary/services/category_fetcher.dart';
 
@@ -14,12 +15,9 @@ class CategoryScreen extends StatelessWidget {
   }
 
   void _navigateToWords(BuildContext context, GridItem category) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => WordListScreen(
-            category:
-                category.name[Localizations.localeOf(context).languageCode]!),
+    NavigationService.navigateTo(
+      WordListScreen(
+        category: category.name[Localizations.localeOf(context).languageCode],
       ),
     );
   }

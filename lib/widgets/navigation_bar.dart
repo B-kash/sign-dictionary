@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NavigationBar extends StatelessWidget {
+class NavigationBar extends StatefulWidget {
   final ValueChanged<int> onTabSelected;
-  int currentIndex;
 
+  const NavigationBar({super.key, required this.onTabSelected});
+
+  @override
+  State<NavigationBar> createState() => _NavigationBarState();
+}
+
+class _NavigationBarState extends State<NavigationBar> {
+  int currentIndex = 0;
   onTabPressed(int index) {
     currentIndex = index;
-    onTabSelected(index);
+    widget.onTabSelected(index);
   }
-
-  NavigationBar({super.key, required this.onTabSelected, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
