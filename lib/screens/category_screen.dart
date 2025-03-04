@@ -32,22 +32,24 @@ class CategoryScreen extends StatelessWidget {
         onTap: (item) => _navigateToWords(context, item),
         itemBuilder: (context, item) {
           return Card(
-            elevation: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                item.logo != null
-                    ? Image.network(item.logo!, height: 50, width: 50)
-                    : const SizedBox(height: 50, width: 50),
-                const SizedBox(height: 10),
-                Text(
-                  item.name[Localizations.localeOf(context).languageCode],
-                  style: const TextStyle(fontSize: 16),
+              elevation: 5,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    item.logo != null
+                        ? Image.network(item.logo!, height: 50, width: 50)
+                        : const SizedBox(height: 50, width: 50),
+                    const SizedBox(height: 10),
+                    Text(
+                      item.name[Localizations.localeOf(context).languageCode],
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
+              ));
         },
       ),
     );
