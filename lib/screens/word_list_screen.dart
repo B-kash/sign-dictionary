@@ -22,7 +22,10 @@ class WordListScreen extends StatelessWidget {
         itemBuilder: (context, item) {
           return Card(
             elevation: 5,
-            child: Column(
+            child: 
+            MouseRegion (
+              cursor: SystemMouseCursors.click,
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -33,6 +36,7 @@ class WordListScreen extends StatelessWidget {
                 ),
               ],
             ),
+            )
           );
         },
       ),
