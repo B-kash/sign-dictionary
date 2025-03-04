@@ -33,7 +33,6 @@ class CategoryScreen extends StatelessWidget {
         itemBuilder: (context, item) {
           return Card(
             elevation: 5,
-            color: Colors.blue[100],
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

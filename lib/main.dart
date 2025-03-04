@@ -4,6 +4,7 @@ import 'package:sign_dictionary/theme.dart';
 import 'screens/loading_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,10 +20,25 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isDarkMode = false; // Track the current theme
 
-  void _toggleTheme() {
+  void _toggleTheme() async {
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isDarkMode', _isDarkMode);
+  }
+
+  void _loadTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isDarkMode = prefs.getBool('isDarkMode') ?? false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTheme();
   }
 
   @override
@@ -52,4 +68,3 @@ class _MyAppState extends State<MyApp> {
     await Future.delayed(const Duration(seconds: 3)); // Adjust delay as needed
   }
 }
-
