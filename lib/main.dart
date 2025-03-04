@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:sign_dictionary/screens/main_screen.dart';
+import 'package:sign_dictionary/theme.dart';
 import 'screens/loading_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isDarkMode = false; // Track the current theme
+
+  void _toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,18 +34,14 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('np'), // Nepali
       ],
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        useMaterial3: true,
-      ),
+      theme: _isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme,
       home: FutureBuilder(
         future: _initializeApp(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingScreen();
           } else {
-            return MainScreen();
+            return MainScreen(onThemeToggle: _toggleTheme);
           }
         },
       ),
@@ -42,6 +49,7 @@ class MyApp extends StatelessWidget {
   }
 
   Future<void> _initializeApp() async {
-    await Future.delayed(Duration(seconds: 3)); // Adjust delay as needed
+    await Future.delayed(const Duration(seconds: 3)); // Adjust delay as needed
   }
 }
+

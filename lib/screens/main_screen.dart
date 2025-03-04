@@ -9,7 +9,10 @@ import './home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({super.key, required this.onThemeToggle});
+
+  final VoidCallback onThemeToggle;
+
 
   @override
   MainScreenState createState() => MainScreenState();
@@ -73,6 +76,10 @@ class MainScreenState extends State<MainScreen> {
           IconButton(
             icon: Icon(_isSearching ? Icons.cancel : Icons.search),
             onPressed: _toggleSearch,
+          ),
+          IconButton(
+            icon: const Icon(Icons.brightness_4),
+            onPressed: widget.onThemeToggle,
           ),
         ],
       ),
